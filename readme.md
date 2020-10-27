@@ -1,0 +1,1 @@
+This Jeopardy game is built using HTML, CSS, Javascript, AJAX, Axios, Bootstrap
