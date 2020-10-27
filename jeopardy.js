@@ -53,10 +53,23 @@ function getCategoryIds(catIds) {
  */
 
 function getCategory(catId) {
+    const cat = catId.data;
     //show only 5 clues
     const clues = _.sampleSize(catId.data, NUM_QUESTIONS_PER_CAT);
-    const category = catId.data;
-    console.log(clues);
+    const catData = {
+        title: cat[0].category.title,
+        clues: [],
+    };
+
+    clues.map((arr)=>{
+        let cluesArr = {
+			question: arr.question,
+			answer: arr.answer,
+			showing: null
+		};
+		catData.clues.push(cluesArr);
+    });
+    console.log(catData);
    
 }
 

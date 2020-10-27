@@ -9,6 +9,8 @@
 *{
   background-color:#115ff4;
   color: #ffffff;
+  justify-content: center;
+  align-self: center;
 }
 
 button{
