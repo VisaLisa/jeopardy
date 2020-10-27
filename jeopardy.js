@@ -19,6 +19,8 @@
 //  ]
 
 let categories = [];
+const NUM_CATEGORIES = 6;
+const NUM_QUESTIONS_PER_CAT = 5;
 
 
 /** Get NUM_CATEGORIES random category from API.
@@ -26,7 +28,16 @@ let categories = [];
  * Returns array of category ids
  */
 
-function getCategoryIds() {
+function getCategoryIds(catIds) {
+    //limt to 6 category
+    let randomIds = _.sampleSize(catIds.data, NUM_CATEGORIES);
+    let categoryIds = [];
+
+    // array of category ids
+    for (cat of randomIds) {
+		categoryIds.push(cat.id);
+	}
+	return categoryIds;
 }
 
 /** Return object with data about a category:
@@ -42,6 +53,11 @@ function getCategoryIds() {
  */
 
 function getCategory(catId) {
+    //show only 5 clues
+    const clues = _.sampleSize(catId.data, NUM_QUESTIONS_PER_CAT);
+    const category = catId.data;
+    console.log(clues);
+   
 }
 
 /** Fill the HTML table#jeopardy with the categories & cells for questions.
@@ -52,7 +68,10 @@ function getCategory(catId) {
  *   (initally, just show a "?" where the question/answer would go.)
  */
 
-async function fillTable() {
+function fillTable() {
+    const $thead = $('<thead></thead>');
+    const $theadRow = $('<tr></tr>');
+    const $tbody = $('<tbody></tbody>');
 }
 
 /** Handle clicking on a clue: show the question or answer.
@@ -87,6 +106,33 @@ function hideLoadingView() {
  * */
 
 async function setupAndStart() {
+    //get 100 categories from API
+    const response = await axios.get('http://jservice.io/api/categories',{
+        params: {
+			count: 100
+		}
+    });
+    
+    //get the catids
+    let catIds = getCategoryIds(response);
+
+    //checkpoint: see which catId pulled - console.log(catIds);
+
+    //pull array from id
+    for (let id of catIds){
+        const clueCard = await axios.get("http://jservice.io/api/clues", {
+			params: {
+                category: id
+			}
+        });
+
+         //checkpoint: see which clues pulled - console.log(clueCard);
+        //Use catId to get data from clueCard 
+        getCategory(clueCard);
+    }
+   
+
+
 }
 
 /** On click of start / restart button, set up game. */

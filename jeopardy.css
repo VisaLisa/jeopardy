@@ -6,20 +6,11 @@
   #74119c
 */
 
-body {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
+*{
+  background-color:#115ff4;
+  color: #ffffff;
 }
 
-#game {
-	text-align: center;
-	font-size: 12pt;
-  color: white;
-  background-color: #060ce9;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
+button{
+  background-color: #28a200;
 }
